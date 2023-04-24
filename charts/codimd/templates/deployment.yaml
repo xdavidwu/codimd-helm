@@ -146,6 +146,10 @@ spec:
             - secretRef:
                 name: {{ template "codimd.shortName" . }}-image-upload
             {{ end  }}
+          {{ if .Values.codimd.containerSecurityContext }}
+          securityContext:
+            {{ toYaml .Values.codimd.containerSecurityContext | nindent 12 }}
+          {{ end }}
           ports:
             - name: http
               containerPort: 3000
